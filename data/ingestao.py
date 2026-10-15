@@ -3,8 +3,10 @@ import re
 from pathlib import Path
 from dotenv import load_dotenv
 from langchain_core.documents import Document
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_qdrant import QdrantVectorStore
+from langchain_huggingface import HuggingFaceEmbeddings
+from qdrant_client import QdrantClient
+from qdrant_client.http import models
 
 # 1. Carrega variáveis de ambiente e define o caminho do arquivo
 load_dotenv()
@@ -151,24 +153,65 @@ gerador_embeddings = HuggingFaceEmbeddings(
     encode_kwargs={'normalize_embeddings': True}
 )
 
-# 6. Conecta e envia para o Qdrant Cloud
-qdrant_url = os.getenv("QDRANT_URL")
-qdrant_api_key = os.getenv("QDRANT_API_KEY")
+# 6. Conecta e envia para o Qdrant Cloud de forma controlada
+qdrant_url = os.getenv("QDRANT_URL", "").strip()
+qdrant_api_key = os.getenv("QDRANT_API_KEY", "").strip()
 
 if not qdrant_url or not qdrant_api_key:
     print("Erro: Variáveis QDRANT_URL e QDRANT_API_KEY não encontradas no .env")
     exit(1)
 
+# Dica: Remove a porta :6333 caso esteja causando bloqueio de firewall, usando 443 padrão do HTTPS
+qdrant_url_limpa = qdrant_url.replace(":6333", "")
+
 nome_colecao = "cdc_vetores"
 
-print(f"Calculando embeddings e enviando para o Qdrant Cloud ({nome_colecao})...")
-QdrantVectorStore.from_documents(
-    documents=chunks,
-    embedding=gerador_embeddings,
-    url=qdrant_url,
+print(f"Testando conexão com Qdrant Cloud em: {qdrant_url_limpa} ...")
+
+# Instancia o cliente desativando checagem inicial que causa falha no Windows e forçando REST HTTPS
+cliente = QdrantClient(
+    url=qdrant_url_limpa,
     api_key=qdrant_api_key,
-    collection_name=nome_colecao,
-    force_recreate=True  # ATENÇÃO: Recria a coleção inteira a cada execução
+    port=443,
+    https=True,
+    timeout=120.0
 )
 
-print("\nIngestão finalizada com sucesso! Seu banco vetorial está pronto.")
+# Testa a conexão e recria a coleção manualmente (1024 é a dimensão exata do BAAI/bge-m3)
+try:
+    if cliente.collection_exists(collection_name=nome_colecao):
+        print(f"Coleção '{nome_colecao}' já existe. Recriando...")
+        cliente.delete_collection(collection_name=nome_colecao)
+    
+    cliente.create_collection(
+        collection_name=nome_colecao,
+        vectors_config=models.VectorParams(
+            size=1024, 
+            distance=models.Distance.COSINE
+        )
+    )
+    print(f"Coleção '{nome_colecao}' criada com sucesso no Qdrant Cloud!")
+except Exception as e:
+    print("\nFalha ao conectar no Qdrant Cloud. Verifique:")
+    print("1. Se o cluster está ATIVO (não pausado) no site do Qdrant Cloud.")
+    print("2. Se a URL no .env começa com https://")
+    print(f"Detalhes técnicos do erro: {e}")
+    exit(1)
+
+# Conecta o LangChain à coleção que já está pronta
+vector_store = QdrantVectorStore(
+    client=cliente,
+    collection_name=nome_colecao,
+    embedding=gerador_embeddings
+)
+
+# Envia em lotes (batches) de 50 artigos para não estourar a conexão
+tamanho_lote = 50
+print(f"Calculando embeddings e enviando {len(chunks)} artigos em lotes de {tamanho_lote}...")
+
+for i in range(0, len(chunks), tamanho_lote):
+    lote = chunks[i : i + tamanho_lote]
+    vector_store.add_documents(lote)
+    print(f" -> Lote enviado: {min(i + tamanho_lote, len(chunks))}/{len(chunks)} artigos processados.")
+
+print("\nIngestão finalizada com sucesso!")
