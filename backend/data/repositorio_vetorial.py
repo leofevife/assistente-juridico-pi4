@@ -1,10 +1,12 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_qdrant import QdrantVectorStore
 from langchain_core.vectorstores import VectorStoreRetriever
 
 load_dotenv()
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 class CDCVectorRepository:
     def __init__(self):

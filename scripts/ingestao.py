@@ -10,6 +10,7 @@ from qdrant_client.http import models
 
 # 1. Carrega variáveis de ambiente e define o caminho do arquivo
 load_dotenv()
+load_dotenv(Path(__file__).resolve().parent.parent / "backend" / ".env")
 diretorio_atual = Path(__file__).resolve().parent
 caminho_txt = diretorio_atual / "resources" / "cdc_limpo.txt"
 
