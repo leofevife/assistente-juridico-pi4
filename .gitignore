@@ -1,1 +1,7 @@
 .env
+
+# Pasta de contexto interno - nao versionar
+contexto/
+
+# Cache do Vite
+.vite/
