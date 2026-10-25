@@ -5,3 +5,30 @@ contexto/
 
 # Cache do Vite
 .vite/
+=======
+
+.env.*
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+venv/
+.venv/
+env/
+ENV/
+
+node_modules/
+dist/
+build/
+
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.DS_Store
+Thumbs.db
