@@ -1,14 +1,12 @@
+# Credenciais locais: ignorar .env e variantes em qualquer pasta do projeto.
 .env
+.env.*
 
 # Pasta de contexto interno - nao versionar
 contexto/
 
 # Cache do Vite
 .vite/
-=======
-
-.env.*
-
 __pycache__/
 *.py[cod]
 *$py.class

@@ -1,0 +1,142 @@
+.response-card {
+  width: 100%;
+  box-sizing: border-box;
+  background: #091c30;
+  border: 1px solid #304b65;
+  border-radius: 15px;
+  padding: 26px;
+  color: #e7edf5;
+}
+
+.response-card__title {
+  margin: 0 0 24px;
+  color: #f4bd71;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.response-card__content {
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.response-card__content p {
+  margin: 0 0 16px;
+}
+
+.response-card__content p:last-child {
+  margin-bottom: 0;
+}
+
+.response-card__content h1,
+.response-card__content h2,
+.response-card__content h3,
+.response-card__content h4 {
+  margin: 22px 0 10px;
+  color: #e7edf5;
+  line-height: 1.4;
+}
+
+.response-card__content h1 {
+  font-size: 22px;
+}
+
+.response-card__content h2 {
+  font-size: 20px;
+}
+
+.response-card__content h3,
+.response-card__content h4 {
+  font-size: 18px;
+}
+
+.response-card__content strong {
+  font-weight: 700;
+  color: #f3f5fa;
+}
+
+.response-card__content ul,
+.response-card__content ol {
+  margin: 10px 0 18px;
+  padding-left: 24px;
+}
+
+.response-card__content li {
+  margin-bottom: 7px;
+}
+
+.response-card__content a {
+  color: #f4bd71;
+  text-decoration: underline;
+}
+
+.response-card__content pre {
+  overflow-x: auto;
+  padding: 14px;
+  border-radius: 8px;
+  background: #10283f;
+}
+
+.response-card__content code {
+  overflow-wrap: anywhere;
+}
+
+.response-card__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.response-card__time {
+  font-size: 13px;
+  color: #aebdce;
+  font-variant-numeric: tabular-nums;
+}
+
+.response-card__copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #f4bd71;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.response-card__copy:hover {
+  background: rgba(244, 189, 113, 0.12);
+  color: #ffd394;
+}
+
+.response-card__copy:focus-visible {
+  outline: 2px solid #f4bd71;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .response-card {
+    padding: 18px;
+  }
+
+  .response-card__title {
+    font-size: 20px;
+  }
+
+  .response-card__content {
+    font-size: 15px;
+  }
+}

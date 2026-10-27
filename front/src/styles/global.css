@@ -10,6 +10,10 @@
   --radius: 12px;
 }
 
+/* ============================================================
+   RESET E CONFIGURACOES GLOBAIS
+   ============================================================ */
+
 *,
 *::before,
 *::after {
@@ -17,17 +21,31 @@
 }
 
 html,
-body {
+body,
+#root {
   margin: 0;
   padding: 0;
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100dvh;
   background-color: var(--bg);
   color: var(--text);
-  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    "Inter",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -59,7 +77,9 @@ img {
   color: var(--text);
 }
 
-/* ---------------- Estrutura geral ---------------- */
+/* ============================================================
+   ESTRUTURA GERAL
+   ============================================================ */
 
 .app-shell {
   display: flex;
@@ -74,7 +94,9 @@ img {
   min-height: 0;
 }
 
-/* ---------------- Cabeçalho ---------------- */
+/* ============================================================
+   CABECALHO
+   ============================================================ */
 
 .app-header {
   position: sticky;
@@ -140,7 +162,10 @@ img {
   border: 1px solid transparent;
   border-radius: 10px;
   color: var(--text-muted);
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .icon-button:hover {
@@ -149,7 +174,10 @@ img {
   color: var(--gold);
 }
 
-/* ---------------- Sidebar ---------------- */
+/* ============================================================
+   SIDEBAR
+   Mantida para futura reativacao.
+   ============================================================ */
 
 .sidebar {
   flex: 0 0 auto;
@@ -158,7 +186,9 @@ img {
   border-right: 1px solid var(--border);
   overflow: hidden;
   z-index: 50;
-  transition: width 0.25s ease, transform 0.25s ease;
+  transition:
+    width 0.25s ease,
+    transform 0.25s ease;
 }
 
 .sidebar.is-collapsed {
@@ -209,7 +239,10 @@ img {
   font-size: 0.95rem;
   font-weight: 500;
   text-align: left;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .menu-item svg {
@@ -243,7 +276,9 @@ img {
   }
 }
 
-/* ---------------- Área principal ---------------- */
+/* ============================================================
+   AREA PRINCIPAL
+   ============================================================ */
 
 .main-area {
   position: relative;
@@ -254,10 +289,23 @@ img {
   justify-content: center;
   padding: 48px 20px 72px;
   overflow: hidden;
+
   background-image:
-    radial-gradient(680px 420px at 50% 32%, rgba(242, 192, 120, 0.11), transparent 70%),
-    radial-gradient(900px 620px at 85% 95%, rgba(36, 59, 84, 0.55), transparent 65%),
-    radial-gradient(700px 500px at 10% 10%, rgba(36, 59, 84, 0.4), transparent 70%);
+    radial-gradient(
+      680px 420px at 50% 32%,
+      rgba(242, 192, 120, 0.11),
+      transparent 70%
+    ),
+    radial-gradient(
+      900px 620px at 85% 95%,
+      rgba(36, 59, 84, 0.55),
+      transparent 65%
+    ),
+    radial-gradient(
+      700px 500px at 10% 10%,
+      rgba(36, 59, 84, 0.4),
+      transparent 70%
+    );
 }
 
 .hero {
@@ -270,6 +318,10 @@ img {
   gap: 32px;
 }
 
+/* ============================================================
+   IMAGEM DA BALANCA
+   ============================================================ */
+
 .justice-scales {
   width: min(320px, 60vw);
   height: auto;
@@ -278,7 +330,9 @@ img {
   margin: 0 auto;
 }
 
-/* ---------------- Barra de pesquisa ---------------- */
+/* ============================================================
+   BARRA DE PESQUISA
+   ============================================================ */
 
 .search-bar {
   width: 100%;
@@ -297,7 +351,9 @@ img {
   background-color: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .search-field:focus-within {
@@ -328,6 +384,11 @@ img {
   opacity: 0.85;
 }
 
+.search-field input:disabled {
+  cursor: wait;
+  opacity: 0.8;
+}
+
 .search-button {
   flex: 0 0 auto;
   min-height: 52px;
@@ -339,18 +400,94 @@ img {
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.01em;
-  transition: filter 0.15s ease, transform 0.15s ease;
+  transition:
+    filter 0.15s ease,
+    transform 0.15s ease;
 }
 
-.search-button:hover {
+.search-button:hover:not(:disabled) {
   filter: brightness(1.07);
 }
 
-.search-button:active {
+.search-button:active:not(:disabled) {
   transform: translateY(1px);
 }
 
-/* ---------------- Notificações ---------------- */
+.search-button:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+/* ============================================================
+   RESULTADO DO ASSISTENTE JURIDICO
+   ============================================================ */
+
+.rag-result {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+}
+
+/* ============================================================
+   FONTES JURIDICAS
+   ============================================================ */
+
+.rag-sources {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px 24px;
+  background-color: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+}
+
+.rag-sources h3 {
+  margin: 0 0 16px;
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.rag-source {
+  margin-bottom: 16px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.rag-source:last-child {
+  margin-bottom: 0;
+}
+
+.rag-source strong {
+  color: var(--text);
+}
+
+.rag-source p {
+  margin: 8px 0 0;
+}
+
+.rag-source__excerpt {
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   AVISO LEGAL
+   ============================================================ */
+
+.rag-disclaimer {
+  margin: 16px 0 0;
+  padding: 0 4px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* ============================================================
+   NOTIFICACOES
+   ============================================================ */
 
 .notification-region {
   position: fixed;
@@ -404,7 +541,9 @@ img {
   border: 0;
   border-radius: 8px;
   color: var(--text-muted);
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .notification-close:hover {
@@ -417,13 +556,16 @@ img {
     opacity: 0;
     transform: translateX(20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
-/* ---------------- Responsividade ---------------- */
+/* ============================================================
+   RESPONSIVIDADE
+   ============================================================ */
 
 @media (max-width: 768px) {
   .sidebar {
@@ -449,6 +591,10 @@ img {
   .main-area {
     padding: 36px 16px 56px;
   }
+
+  .hero {
+    gap: 26px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -464,6 +610,10 @@ img {
   .search-button {
     flex: 1 1 auto;
     width: 100%;
+  }
+
+  .rag-sources {
+    padding: 18px;
   }
 
   .notification-region {
@@ -483,9 +633,15 @@ img {
   }
 }
 
-/* ---------------- Movimento reduzido ---------------- */
+/* ============================================================
+   MOVIMENTO REDUZIDO
+   ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
