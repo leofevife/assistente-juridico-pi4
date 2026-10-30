@@ -1,0 +1,40 @@
+:root {
+  --papel: #f3f0e8;
+  --papel-2: #ebe7dc;
+  --papel-3: #e2ddcf;
+  --tinta: #1a1915;
+  --tinta-2: #4f4b43;
+  --tinta-3: #85806f;
+  --linha: #d3ccbc;
+  --linha-forte: #1a1915;
+  --acento: #a3341f;
+  --acento-suave: #f0d9cf;
+  --sucesso: #3d6b3a;
+
+  --fonte-serifa: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
+  --fonte-sans: 'Instrument Sans Variable', 'Segoe UI', system-ui, sans-serif;
+  --fonte-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  --raio: 2px;
+  --largura-max: 1280px;
+  --margem: clamp(1.25rem, 4vw, 3rem);
+  --duracao: 180ms;
+  --curva: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papel: #141310;
+    --papel-2: #1c1b17;
+    --papel-3: #26241f;
+    --tinta: #ece7da;
+    --tinta-2: #b3ad9e;
+    --tinta-3: #7d786b;
+    --linha: #34312a;
+    --linha-forte: #ece7da;
+    --acento: #e2795f;
+    --acento-suave: #3a2219;
+    --sucesso: #8fbf86;
+  }
+}
+
