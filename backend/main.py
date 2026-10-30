@@ -1,5 +1,12 @@
 import logging
+import sys
 from contextlib import asynccontextmanager
+from pathlib import Path
+
+# Garante que a raiz do projeto esteja no sys.path mesmo ao executar diretamente o arquivo
+raiz_projeto = Path(__file__).resolve().parent.parent
+if str(raiz_projeto) not in sys.path:
+    sys.path.insert(0, str(raiz_projeto))
 
 from fastapi import APIRouter, FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -92,4 +99,10 @@ def create_app(settings: Settings | None = None, inicializar_servicos: bool = Tr
 
 configurar_logging()
 app = create_app()
+
+if __name__ == "__main__":
+    import uvicorn
+    # Permite iniciar o servidor executando diretamente este arquivo
+    uvicorn.run("backend.main:app", host="0.0.0.0", port=8000, reload=True)
+
 
