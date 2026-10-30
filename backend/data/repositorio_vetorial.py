@@ -1,25 +1,23 @@
-import os
-from pathlib import Path
-from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_qdrant import QdrantVectorStore
 from langchain_core.vectorstores import VectorStoreRetriever
 
-load_dotenv()
-load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+from backend.core.config import Settings, obter_settings
+
 
 class CDCVectorRepository:
-    def __init__(self):
-        self.qdrant_url = os.getenv("QDRANT_URL")
-        self.qdrant_api_key = os.getenv("QDRANT_API_KEY")
-        self.collection_name = "cdc_vetores"
-        
+    def __init__(self, settings: Settings | None = None):
+        self.settings = settings or obter_settings()
+        self.qdrant_url = self.settings.qdrant_url
+        self.qdrant_api_key = self.settings.qdrant_api_key.get_secret_value()
+        self.collection_name = self.settings.qdrant_colecao
+
         if not self.qdrant_url or not self.qdrant_api_key:
             raise ValueError("Credenciais do Qdrant ausentes no arquivo .env")
 
         #Inicializa o mesmo modelo usado na ingestão
         self.embeddings = HuggingFaceEmbeddings(
-            model_name="BAAI/bge-m3",
+            model_name=self.settings.modelo_embedding,
             model_kwargs={'device': 'cpu'},
             encode_kwargs={'normalize_embeddings': True}
         )
@@ -44,3 +42,7 @@ class CDCVectorRepository:
     def buscar_trechos(self, pergunta: str, k: int = 4):
         retriever = self.obter_retriever(k=k)
         return retriever.invoke(pergunta)
+
+    # Usado pelo health check para confirmar que a coleção continua acessível
+    def verificar_conexao(self) -> bool:
+        return self.vector_store.client.collection_exists(self.collection_name)
