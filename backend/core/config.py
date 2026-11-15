@@ -43,7 +43,6 @@ class Settings(BaseSettings):
     rate_limit_requisicoes: int = Field(default=20, ge=1, alias="RATE_LIMIT_REQUISICOES")
     rate_limit_janela_segundos: int = Field(default=60, ge=1, alias="RATE_LIMIT_JANELA_SEGUNDOS")
 
-    # Aceita CORS_ORIGENS no .env como lista separada por vírgula, além do formato JSON
     @field_validator("cors_origens", mode="before")
     @classmethod
     def _separar_origens(cls, valor):
