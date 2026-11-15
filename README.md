@@ -212,7 +212,7 @@ Comandos principais na raiz do projeto:
 
 ```bash
 python -m avaliacao validar
-python -m avaliacao executar --nome minha-execucao
+python -m avaliacao executar --rotulo minha-execucao
 ```
 
 ### Evolução dos Resultados (Baseline vs. Pós-Ajuste)
