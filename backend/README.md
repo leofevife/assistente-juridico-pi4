@@ -75,6 +75,26 @@ python -m pytest
 
 Os testes automatizados usam retriever e LLM falsos, portanto não consomem a API da Groq nem o Qdrant.
 
+## Avaliação de Qualidade (RAGAS)
+
+O pipeline foi submetido a testes automatizados em [avaliacao](../avaliacao/README.md) sobre 32 casos de Ground Truth do CDC para validar os indicadores `Faithfulness` (`> 0,850`) e `Answer Relevance` (`> 0,800`):
+
+- **Diagnóstico do `baseline`**: atingiu `Faithfulness = 0,911`, mas não bateu a meta de `Answer Relevance` (`0,773`). A análise identificou decretos/portarias anexados após o Art. 119 no texto extraído do PDF (fazendo o retriever confundir artigos infralegais com o CDC em casos como `gt-023` e `gt-028`), falha na regex para artigos com `°` (`1°` a `9°`), busca puramente densa em artigos longos com múltiplos incisos (`Art. 6º, VIII`), respostas extensas em múltiplos parágrafos/listas e o prompt reverso do `ResponseRelevancy` configurado em inglês.
+- **Correções aplicadas no backend e na ingestão**:
+  - `scripts/ingestao.py` foi corrigido para interromper antes dos decretos anexos e reconhecer `[º°]`, reindexando os **120 artigos** exclusivos do CDC no Qdrant Cloud.
+  - `backend/data/repositorio_vetorial.py` passou a usar `RetrieverCDC` híbrido com filtro defensivo (`eh_documento_cdc`), deduplicação por artigo e desempate lexical ponderado por IDF sobre os 120 artigos, mantendo `RETRIEVER_K=4`.
+  - `backend/services/rag_service.py` teve o prompt ajustado para respostas em parágrafo único objetivo (2 a 3 frases em texto corrido, mapeando termos coloquiais aos institutos do CDC) e cadeia `with_fallbacks` entre modelos da Groq (`openai/gpt-oss-120b`, `openai/gpt-oss-20b` e `qwen/qwen3.8-27b`).
+  - `avaliacao/metricas.py` adaptou o prompt de `Answer Relevance` para português e adicionou seleção priorizada de contexto e fallback de juízes.
+
+| Indicador | `baseline` | `pos-ajuste` | Meta | Situação |
+|---|---|---|---|---|
+| Faithfulness | 0,911 | **0,884** | > 0,850 | Atingido (32/32) |
+| Answer Relevance | 0,773 | **0,807** | > 0,800 | Atingido (32/32) |
+| Recall dos artigos de referência | 0,922 | **0,969** | — | 30/32 casos = 1,000 |
+| Citação dos artigos de referência | 0,922 | **0,938** | — | — |
+
+O detalhamento por caso e os relatórios completos estão em [avaliacao/README.md](../avaliacao/README.md).
+
 ## Segurança e escalabilidade
 
 - Segredos lidos via `pydantic-settings` como `SecretStr` (não aparecem em logs/repr).
