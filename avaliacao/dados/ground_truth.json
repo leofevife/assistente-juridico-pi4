@@ -1,0 +1,230 @@
+{
+  "versao": "1.0.0",
+  "lei": "Lei 8.078/1990 (CDC)",
+  "casos": [
+    {
+      "id": "gt-001",
+      "tema": "arrependimento",
+      "pergunta": "Comprei uma geladeira pela internet e me arrependi. Qual o prazo para devolver?",
+      "resposta_esperada": "O consumidor pode desistir do contrato no prazo de 7 dias, contados da assinatura ou do recebimento do produto, quando a compra ocorre fora do estabelecimento comercial, como na contratação pela internet ou por telefone (art. 49).",
+      "artigos_referencia": ["49"]
+    },
+    {
+      "id": "gt-002",
+      "tema": "arrependimento",
+      "pergunta": "Desisti de uma compra online dentro do prazo de arrependimento. A loja precisa devolver o dinheiro?",
+      "resposta_esperada": "Sim. Exercido o direito de arrependimento, os valores pagos a qualquer título durante o prazo de reflexão devem ser devolvidos de imediato, monetariamente atualizados (art. 49, parágrafo único).",
+      "artigos_referencia": ["49"]
+    },
+    {
+      "id": "gt-003",
+      "tema": "vicio do produto",
+      "pergunta": "Meu celular apresentou defeito e a assistência não resolveu em 30 dias. O que posso exigir?",
+      "resposta_esperada": "Se o vício não for sanado no prazo máximo de trinta dias, o consumidor pode exigir, à sua escolha, a substituição do produto por outro da mesma espécie em perfeitas condições, a restituição imediata da quantia paga, monetariamente atualizada, ou o abatimento proporcional do preço (art. 18, § 1º).",
+      "artigos_referencia": ["18"]
+    },
+    {
+      "id": "gt-004",
+      "tema": "vicio do produto",
+      "pergunta": "Posso exigir a troca ou o dinheiro de volta na hora, sem esperar os 30 dias, se o produto com defeito for essencial?",
+      "resposta_esperada": "Sim. O consumidor pode usar imediatamente as alternativas de substituição, restituição ou abatimento quando, pela extensão do vício, a substituição das partes viciadas comprometer a qualidade ou as características do produto, diminuir-lhe o valor ou se tratar de produto essencial (art. 18, § 3º).",
+      "artigos_referencia": ["18"]
+    },
+    {
+      "id": "gt-005",
+      "tema": "prazo para reclamar",
+      "pergunta": "Qual o prazo para reclamar de um defeito aparente em uma televisão?",
+      "resposta_esperada": "O direito de reclamar por vícios aparentes ou de fácil constatação caduca em noventa dias para produtos duráveis, como uma televisão, contados da entrega efetiva do produto (art. 26, II e § 1º).",
+      "artigos_referencia": ["26"]
+    },
+    {
+      "id": "gt-006",
+      "tema": "prazo para reclamar",
+      "pergunta": "Quanto tempo tenho para reclamar de um defeito em um produto não durável, como um alimento?",
+      "resposta_esperada": "O direito de reclamar por vícios aparentes ou de fácil constatação caduca em trinta dias quando se trata de produtos não duráveis ou de serviços (art. 26, I).",
+      "artigos_referencia": ["26"]
+    },
+    {
+      "id": "gt-007",
+      "tema": "vicio oculto",
+      "pergunta": "O defeito do produto só apareceu meses depois da compra. Ainda posso reclamar?",
+      "resposta_esperada": "Sim. Tratando-se de vício oculto, o prazo para reclamar começa a contar no momento em que o defeito fica evidenciado, e não da data da compra (art. 26, § 3º).",
+      "artigos_referencia": ["26"]
+    },
+    {
+      "id": "gt-008",
+      "tema": "prazo para reclamar",
+      "pergunta": "Reclamar diretamente com a loja interrompe o prazo para exigir meus direitos por causa do defeito?",
+      "resposta_esperada": "A reclamação comprovadamente formulada pelo consumidor perante o fornecedor obsta a decadência até a resposta negativa correspondente, que deve ser transmitida de forma inequívoca (art. 26, § 2º, I).",
+      "artigos_referencia": ["26"]
+    },
+    {
+      "id": "gt-009",
+      "tema": "garantia",
+      "pergunta": "A loja disse que a garantia do fabricante acabou e que não tenho mais direitos. Isso está correto?",
+      "resposta_esperada": "Não necessariamente. A garantia legal de adequação do produto ou serviço independe de termo expresso, sendo vedada a exoneração contratual do fornecedor (art. 24). A garantia contratual é apenas complementar à legal (art. 50).",
+      "artigos_referencia": ["24", "50"]
+    },
+    {
+      "id": "gt-010",
+      "tema": "garantia",
+      "pergunta": "O que é a garantia contratual e como ela deve ser entregue ao consumidor?",
+      "resposta_esperada": "A garantia contratual é complementar à legal e deve ser conferida mediante termo escrito. O termo deve ser padronizado e esclarecer em que consiste a garantia, a forma, o prazo e o lugar em que pode ser exercida e os ônus do consumidor, sendo entregue preenchido no ato do fornecimento, acompanhado de manual de instrução, instalação e uso em linguagem didática (art. 50).",
+      "artigos_referencia": ["50"]
+    },
+    {
+      "id": "gt-011",
+      "tema": "vicio do produto",
+      "pergunta": "Qual o prazo que o fornecedor tem para consertar um produto com defeito?",
+      "resposta_esperada": "O vício deve ser sanado no prazo máximo de trinta dias (art. 18, § 1º). As partes podem convencionar a redução ou ampliação desse prazo, que não pode ser inferior a sete nem superior a cento e oitenta dias, e, nos contratos de adesão, a cláusula deve ser convencionada em separado, por manifestação expressa do consumidor (art. 18, § 2º).",
+      "artigos_referencia": ["18"]
+    },
+    {
+      "id": "gt-012",
+      "tema": "vicio do servico",
+      "pergunta": "Contratei um serviço que foi mal executado. Quais são os meus direitos?",
+      "resposta_esperada": "O consumidor pode exigir, alternativamente e à sua escolha, a reexecução dos serviços sem custo adicional, quando cabível, a restituição imediata da quantia paga, monetariamente atualizada, ou o abatimento proporcional do preço (art. 20).",
+      "artigos_referencia": ["20"]
+    },
+    {
+      "id": "gt-013",
+      "tema": "responsabilidade solidaria",
+      "pergunta": "Posso reclamar contra a loja ou apenas contra o fabricante quando o produto vem com defeito?",
+      "resposta_esperada": "Os fornecedores de produtos de consumo respondem solidariamente pelos vícios de qualidade ou quantidade, de modo que o consumidor pode acionar a loja e o fabricante (art. 18, caput).",
+      "artigos_referencia": ["18"]
+    },
+    {
+      "id": "gt-014",
+      "tema": "fato do produto",
+      "pergunta": "Um produto defeituoso me causou uma lesão. O fabricante responde mesmo sem ter agido com culpa?",
+      "resposta_esperada": "Sim. O fabricante, o produtor, o construtor e o importador respondem, independentemente de culpa, pela reparação dos danos causados por defeitos de projeto, fabricação, montagem ou por informações insuficientes ou inadequadas. Só não respondem se provarem que não colocaram o produto no mercado, que o defeito inexiste ou a culpa exclusiva do consumidor ou de terceiro (art. 12).",
+      "artigos_referencia": ["12"]
+    },
+    {
+      "id": "gt-015",
+      "tema": "fato do produto",
+      "pergunta": "Em quais situações o comerciante responde pelos danos causados por um produto defeituoso?",
+      "resposta_esperada": "O comerciante é igualmente responsável quando o fabricante, o construtor, o produtor ou o importador não puderem ser identificados, quando o produto for fornecido sem identificação clara de quem o fabricou ou quando não conservar adequadamente os produtos perecíveis (art. 13).",
+      "artigos_referencia": ["13"]
+    },
+    {
+      "id": "gt-016",
+      "tema": "prescricao",
+      "pergunta": "Em quanto tempo prescreve o direito de pedir indenização por danos causados por um produto defeituoso?",
+      "resposta_esperada": "Prescreve em cinco anos a pretensão à reparação pelos danos causados por fato do produto ou do serviço, com a contagem iniciando a partir do conhecimento do dano e de sua autoria (art. 27).",
+      "artigos_referencia": ["27"]
+    },
+    {
+      "id": "gt-017",
+      "tema": "cobranca indevida",
+      "pergunta": "Fui cobrado por um valor que não devia e acabei pagando. Tenho direito à devolução em dobro?",
+      "resposta_esperada": "Sim. O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável (art. 42, parágrafo único).",
+      "artigos_referencia": ["42"]
+    },
+    {
+      "id": "gt-018",
+      "tema": "cobranca",
+      "pergunta": "A empresa me ameaça e me expõe a constrangimento para cobrar uma dívida. Isso é permitido?",
+      "resposta_esperada": "Não. Na cobrança de débitos, o consumidor inadimplente não pode ser exposto a ridículo nem submetido a qualquer tipo de constrangimento ou ameaça (art. 42, caput).",
+      "artigos_referencia": ["42"]
+    },
+    {
+      "id": "gt-019",
+      "tema": "cadastro de inadimplentes",
+      "pergunta": "Por quanto tempo meu nome pode ficar negativado em cadastros de proteção ao crédito?",
+      "resposta_esperada": "Os cadastros e dados de consumidores não podem conter informações negativas referentes a período superior a cinco anos (art. 43, § 1º).",
+      "artigos_referencia": ["43"]
+    },
+    {
+      "id": "gt-020",
+      "tema": "cadastro de inadimplentes",
+      "pergunta": "Encontrei uma informação errada no meu cadastro de crédito. O que posso exigir?",
+      "resposta_esperada": "O consumidor pode exigir a imediata correção dos dados inexatos, e o arquivista deve comunicar a alteração aos destinatários das informações incorretas no prazo de cinco dias úteis (art. 43, § 3º).",
+      "artigos_referencia": ["43"]
+    },
+    {
+      "id": "gt-021",
+      "tema": "publicidade",
+      "pergunta": "O que caracteriza uma publicidade enganosa?",
+      "resposta_esperada": "É enganosa qualquer informação ou comunicação publicitária inteira ou parcialmente falsa ou que, mesmo por omissão, seja capaz de induzir o consumidor em erro sobre natureza, características, qualidade, quantidade, origem, preço ou outros dados do produto ou serviço. A publicidade é enganosa por omissão quando deixa de informar dado essencial (art. 37, §§ 1º e 3º).",
+      "artigos_referencia": ["37"]
+    },
+    {
+      "id": "gt-022",
+      "tema": "oferta",
+      "pergunta": "A loja anunciou um preço e, na hora da compra, se recusou a vender por esse valor. O que posso fazer?",
+      "resposta_esperada": "A informação ou publicidade suficientemente precisa obriga o fornecedor e integra o contrato (art. 30). Diante da recusa, o consumidor pode, à sua escolha, exigir o cumprimento forçado da oferta, aceitar outro produto ou serviço equivalente ou rescindir o contrato, com restituição de quantia antecipada, monetariamente atualizada, e perdas e danos (art. 35).",
+      "artigos_referencia": ["30", "35"]
+    },
+    {
+      "id": "gt-023",
+      "tema": "processo de consumo",
+      "pergunta": "O que é a inversão do ônus da prova em uma ação de consumo?",
+      "resposta_esperada": "É um direito básico do consumidor que facilita a sua defesa: a critério do juiz, no processo civil, o ônus da prova pode ser invertido a favor do consumidor quando a alegação for verossímil ou quando ele for hipossuficiente (art. 6º, VIII).",
+      "artigos_referencia": ["6"]
+    },
+    {
+      "id": "gt-024",
+      "tema": "clausulas abusivas",
+      "pergunta": "Uma cláusula do contrato diz que a empresa não responde por defeitos. Ela é válida?",
+      "resposta_esperada": "Não. São nulas de pleno direito as cláusulas que impossibilitem, exonerem ou atenuem a responsabilidade do fornecedor por vícios de qualquer natureza dos produtos e serviços ou impliquem renúncia ou disposição de direitos (art. 51, I).",
+      "artigos_referencia": ["51"]
+    },
+    {
+      "id": "gt-025",
+      "tema": "clausulas abusivas",
+      "pergunta": "O contrato permite que a empresa altere o preço unilateralmente. Isso é legal?",
+      "resposta_esperada": "Não. São nulas de pleno direito as cláusulas que permitam ao fornecedor, direta ou indiretamente, a variação do preço de maneira unilateral (art. 51, X). A nulidade de uma cláusula abusiva não invalida o contrato, salvo se sua ausência gerar ônus excessivo a qualquer das partes (art. 51, § 2º).",
+      "artigos_referencia": ["51"]
+    },
+    {
+      "id": "gt-026",
+      "tema": "contrato de adesao",
+      "pergunta": "Como devem ser redigidos os contratos de adesão?",
+      "resposta_esperada": "Os contratos de adesão escritos devem ser redigidos em termos claros e com caracteres ostensivos e legíveis, com fonte de tamanho não inferior ao corpo doze, e as cláusulas que limitem direitos do consumidor devem ser redigidas com destaque (art. 54, §§ 3º e 4º).",
+      "artigos_referencia": ["54"]
+    },
+    {
+      "id": "gt-027",
+      "tema": "interpretacao contratual",
+      "pergunta": "Se houver dúvida sobre o sentido de uma cláusula do contrato, qual interpretação prevalece?",
+      "resposta_esperada": "As cláusulas contratuais devem ser interpretadas de maneira mais favorável ao consumidor (art. 47).",
+      "artigos_referencia": ["47"]
+    },
+    {
+      "id": "gt-028",
+      "tema": "orcamento",
+      "pergunta": "O prestador de serviço pode fazer o conserto sem me entregar um orçamento antes?",
+      "resposta_esperada": "Não. O fornecedor de serviço deve entregar orçamento prévio discriminando mão de obra, materiais e equipamentos, condições de pagamento e datas de início e término (art. 40), e é vedado executar serviços sem prévia elaboração de orçamento e autorização expressa do consumidor, ressalvadas as práticas anteriores entre as partes (art. 39, VI).",
+      "artigos_referencia": ["40", "39"]
+    },
+    {
+      "id": "gt-029",
+      "tema": "praticas abusivas",
+      "pergunta": "Recebi em casa um produto que eu não pedi. Preciso pagar por ele?",
+      "resposta_esperada": "Não. É vedado ao fornecedor enviar ou entregar produto ou serviço sem solicitação prévia, e os produtos remetidos nessa hipótese equiparam-se a amostras grátis, inexistindo obrigação de pagamento (art. 39, III e parágrafo único).",
+      "artigos_referencia": ["39"]
+    },
+    {
+      "id": "gt-030",
+      "tema": "credito e financiamento",
+      "pergunta": "Qual o limite da multa por atraso no pagamento de uma prestação?",
+      "resposta_esperada": "As multas de mora decorrentes do inadimplemento de obrigações no seu termo não podem ser superiores a dois por cento do valor da prestação (art. 52, § 1º).",
+      "artigos_referencia": ["52"]
+    },
+    {
+      "id": "gt-031",
+      "tema": "credito e financiamento",
+      "pergunta": "Parei de pagar um bem comprado em prestações. O vendedor pode ficar com tudo o que já paguei?",
+      "resposta_esperada": "Não. Nos contratos de compra e venda em prestações e nas alienações fiduciárias, são nulas de pleno direito as cláusulas que estabeleçam a perda total das prestações pagas em benefício do credor que, em razão do inadimplemento, pleitear a resolução do contrato e a retomada do produto (art. 53).",
+      "artigos_referencia": ["53"]
+    },
+    {
+      "id": "gt-032",
+      "tema": "informacao",
+      "pergunta": "Os produtos vendidos no Brasil precisam trazer as informações em português?",
+      "resposta_esperada": "Sim. A oferta e a apresentação de produtos e serviços devem assegurar informações corretas, claras, precisas, ostensivas e em língua portuguesa sobre suas características, qualidade, quantidade, composição, preço, garantia, prazos de validade e origem, entre outros dados, além dos riscos que apresentam (art. 31).",
+      "artigos_referencia": ["31"]
+    }
+  ]
+}
