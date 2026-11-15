@@ -56,7 +56,7 @@ def carregar_artigos_cdc(caminho: Path = CAMINHO_CDC) -> dict[str, str]:
     return artigos
 
 
-def _cita_artigo(texto: str, numero: str) -> bool:
+def cita_artigo(texto: str, numero: str) -> bool:
     padrao = rf"\bart(?:s)?\.?\s*{re.escape(numero)}(?!\d)"
     return re.search(padrao, texto, re.IGNORECASE) is not None
 
@@ -83,7 +83,7 @@ def validar_ground_truth(
             numero = normalizar_numero_artigo(referencia)
             if numero not in artigos_cdc:
                 problemas.append(f"{caso.id}: o artigo {referencia} não existe no texto do CDC.")
-            elif not _cita_artigo(caso.resposta_esperada, numero):
+            elif not cita_artigo(caso.resposta_esperada, numero):
                 problemas.append(f"{caso.id}: a resposta esperada não cita o artigo {referencia}.")
 
     return problemas
