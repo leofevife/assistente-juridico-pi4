@@ -66,7 +66,13 @@ async def _avaliar(rotulo: str) -> None:
     settings, config, conjunto, _, repositorio = _ambiente()
     avaliador = criar_avaliador(settings, config, repositorio)
 
-    metricas = await avaliar_execucao(_destino(rotulo), conjunto, carregar_artigos_cdc(), avaliador)
+    metricas = await avaliar_execucao(
+        _destino(rotulo),
+        conjunto,
+        carregar_artigos_cdc(),
+        avaliador,
+        pausa_segundos=config.pausa_segundos,
+    )
     pendentes = [m.id for m in metricas if m.erros]
     print(f"Casos avaliados: {len(metricas) - len(pendentes)}/{len(conjunto.casos)}. Com erro: {pendentes or 'nenhum'}.")
 

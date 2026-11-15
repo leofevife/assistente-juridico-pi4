@@ -29,6 +29,16 @@ def test_reconhece_artigo_com_ordinal_e_sufixo(artigos_cdc):
     assert artigos_do_cdc_recuperados(fontes, artigos_cdc) == {"1", "42-A"}
 
 
+def test_reconhece_artigo_com_quebra_de_linha(artigos_cdc):
+    fonte = _fonte(
+        "27",
+        "Prescreve em cinco anos a pretensão à reparação pelos danos causados por fato do produto ou do serviço "
+        "prevista na Seção II deste Capítulo, iniciando-se a contagem do prazo a partir do conhecimento do dano "
+        "e de sua autoria. Parágrafo único. (Vetado).",
+    )
+    assert artigos_do_cdc_recuperados([fonte], artigos_cdc) == {"27"}
+
+
 def test_recall_considera_fracao_dos_artigos_de_referencia():
     assert recall_artigos(["30", "35"], {"30"}) == 0.5
     assert recall_artigos(["49"], {"49", "18"}) == 1.0

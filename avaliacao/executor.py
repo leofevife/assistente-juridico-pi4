@@ -73,8 +73,6 @@ async def gerar_respostas(
         resultado = await _consultar_com_tentativas(consultar, caso.pergunta, tentativas, espera_segundos)
         resultado.id = caso.id
         existentes[caso.id] = resultado
-
-        # Persiste a cada caso para que a execução possa ser retomada após falhas ou limites de taxa
         salvar_json(arquivo, [existentes[c.id] for c in conjunto.casos if c.id in existentes])
         logger.info("%s: %s", caso.id, "ok" if resultado.erro is None else f"falhou ({resultado.erro})")
 

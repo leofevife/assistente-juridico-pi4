@@ -15,7 +15,6 @@ def _assinatura(texto: str) -> str:
 
 
 def artigos_do_cdc_recuperados(fontes: list[FonteRecuperada], artigos_cdc: dict[str, str]) -> set[str]:
-    # O artigo só conta se o texto também for o do CDC, pois os decretos anexados à base repetem a numeração
     assinaturas = {numero: _assinatura(corpo) for numero, corpo in artigos_cdc.items()}
     encontrados: set[str] = set()
     for fonte in fontes:

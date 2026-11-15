@@ -12,6 +12,7 @@ MINIMO_CASOS = 30
 
 REGEX_ARTIGO = re.compile(r"^Art\.\s*(\d+)\s*[º°o]?(?:\s*-\s*([A-Z]))?\.?\s*(.*)$")
 REGEX_INICIO_DECRETOS = re.compile(r"^DECRETO\s+N", re.IGNORECASE)
+REGEX_ESTRUTURA = re.compile(r"^(?:TÍTULO|CAPÍTULO|SEÇÃO)\s+[IVXLCDM]+", re.IGNORECASE)
 
 
 class CasoGroundTruth(BaseModel):
@@ -41,18 +42,28 @@ def carregar_ground_truth(caminho: Path = CAMINHO_GROUND_TRUTH) -> ConjuntoGroun
 
 
 def carregar_artigos_cdc(caminho: Path = CAMINHO_CDC) -> dict[str, str]:
-    # O arquivo traz o CDC seguido de decretos regulamentadores, que repetem a numeração dos artigos
     artigos: dict[str, str] = {}
+    atual: str | None = None
     for linha in caminho.read_text(encoding="utf-8").splitlines():
         linha = linha.strip()
+        if not linha:
+            continue
         if REGEX_INICIO_DECRETOS.match(linha):
             break
-        correspondencia = REGEX_ARTIGO.match(linha)
-        if not correspondencia:
+        if REGEX_ESTRUTURA.match(linha):
+            atual = None
             continue
-        numero, sufixo, corpo = correspondencia.groups()
-        chave = f"{numero}-{sufixo}" if sufixo else numero
-        artigos.setdefault(chave, corpo)
+        correspondencia = REGEX_ARTIGO.match(linha)
+        if correspondencia:
+            numero, sufixo, corpo = correspondencia.groups()
+            chave = f"{numero}-{sufixo}" if sufixo else numero
+            if chave not in artigos:
+                artigos[chave] = corpo.strip()
+                atual = chave
+            else:
+                atual = None
+        elif atual is not None:
+            artigos[atual] = f"{artigos[atual]} {linha}".strip()
     return artigos
 
 

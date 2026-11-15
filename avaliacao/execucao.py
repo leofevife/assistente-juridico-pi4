@@ -23,17 +23,54 @@ def criar_servico(settings: Settings) -> tuple[AssistenteJuridicoService, CDCVec
     return AssistenteJuridicoService(repositorio, settings=settings), repositorio
 
 
-def criar_avaliador(
-    settings: Settings, config: ConfiguracaoAvaliacao, repositorio: CDCVectorRepository
-) -> AvaliadorRagas:
-    juiz = ChatGroq(
-        model=config.modelo_juiz,
+def _criar_llm_juiz(settings: Settings, config: ConfiguracaoAvaliacao, modelo: str) -> ChatGroq:
+    extras: dict[str, object] = {}
+    max_tokens = 650
+    max_retries = 2
+    if "safeguard" in modelo:
+        extras["reasoning_effort"] = "low"
+        max_tokens = 1500
+        max_retries = 6
+    elif "gpt-oss" in modelo:
+        extras["reasoning_effort"] = "low"
+        max_tokens = 1500
+        max_retries = 2
+    elif "qwen" in modelo:
+        extras["reasoning_effort"] = "none"
+        max_tokens = 600
+        max_retries = 2
+    return ChatGroq(
+        model=modelo,
         temperature=0.0,
         api_key=settings.groq_api_key,
         timeout=config.timeout_juiz_segundos,
-        max_retries=2,
+        max_retries=max_retries,
+        max_tokens=max_tokens,
+        **extras,
     )
-    return AvaliadorRagas(juiz, repositorio.embeddings, config.timeout_juiz_segundos)
+
+
+def criar_avaliador(
+    settings: Settings, config: ConfiguracaoAvaliacao, repositorio: CDCVectorRepository
+) -> AvaliadorRagas:
+    juiz = _criar_llm_juiz(settings, config, config.modelo_juiz)
+    modelos_reserva = [
+        modelo
+        for modelo in (
+            "openai/gpt-oss-safeguard-20b",
+            "openai/gpt-oss-20b",
+            "openai/gpt-oss-120b",
+            "qwen/qwen3.8-27b",
+        )
+        if modelo != config.modelo_juiz
+    ]
+    fallbacks = [_criar_llm_juiz(settings, config, modelo) for modelo in modelos_reserva]
+    return AvaliadorRagas(
+        juiz,
+        repositorio.embeddings,
+        config.timeout_juiz_segundos,
+        llms_fallback=fallbacks,
+    )
 
 
 def _hash_prompt(servico: AssistenteJuridicoService) -> str:

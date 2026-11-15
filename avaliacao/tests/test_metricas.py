@@ -5,7 +5,7 @@ import pytest
 from avaliacao.armazenamento import carregar_lista, salvar_json
 from avaliacao.executor import ARQUIVO_RESPOSTAS
 from avaliacao.ground_truth import carregar_artigos_cdc, carregar_ground_truth
-from avaliacao.metricas import ARQUIVO_METRICAS, avaliar_execucao
+from avaliacao.metricas import ARQUIVO_METRICAS, _selecionar_contextos_avaliacao, avaliar_execucao
 from avaliacao.modelos import FonteRecuperada, MetricasCaso, ResultadoGeracao
 
 
@@ -108,3 +108,16 @@ def test_calcula_cobertura_sem_avaliador(destino, conjunto, artigos_cdc):
     assert all(m.faithfulness is None for m in metricas)
     salvos = carregar_lista(destino / ARQUIVO_METRICAS, MetricasCaso)
     assert len(salvos) == 2
+
+
+def test_selecionar_contextos_avaliacao_prioriza_artigos_citados_e_limita_tamanho():
+    contextos = [
+        "[Título I]\nArt. 10 " + "a" * 1600,
+        "[Título I]\nArt. 49 " + "b" * 1600,
+        "[Título I]\nArt. 18 " + "c" * 600,
+    ]
+    selecionados = _selecionar_contextos_avaliacao("Conforme o Art. 49 e o Art. 18 do CDC.", contextos, limite_caracteres=2800)
+
+    assert len(selecionados) == 2
+    assert "Art. 49" in selecionados[0]
+    assert "Art. 18" in selecionados[1]
