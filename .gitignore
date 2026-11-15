@@ -20,6 +20,7 @@ coverage.xml
 .mypy_cache/
 .ruff_cache/
 *.log
+*.tmp
 
 node_modules/
 dist/

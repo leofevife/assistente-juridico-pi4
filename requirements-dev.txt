@@ -1,4 +1,18 @@
 -r requirements.txt
 pytest>=8.0
 httpx>=0.27
+ragas==0.4.4
+datasets>=4.0
+instructor>=1.0
+langchain>=1.0
+langchain-openai>=1.0
+nest-asyncio>=1.6
+networkx>=3.0
+pillow>=10.0
+rich>=13.0
+tenacity>=8.0
+tiktoken>=0.7
+typer>=0.12
+appdirs>=1.4
+diskcache>=5.6
 
