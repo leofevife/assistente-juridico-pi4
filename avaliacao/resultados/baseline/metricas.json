@@ -1,0 +1,258 @@
+[
+  {
+    "id": "gt-001",
+    "faithfulness": 0.8181818181818182,
+    "answer_relevancy": 0.6689873668416881,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-002",
+    "faithfulness": 0.8181818181818182,
+    "answer_relevancy": 0.8807223702934631,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-003",
+    "faithfulness": 0.9411764705882353,
+    "answer_relevancy": 0.6685171556194285,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-004",
+    "faithfulness": 0.9090909090909091,
+    "answer_relevancy": 0.7933390135488269,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-005",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.88826411541065,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-006",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.867745144804036,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-007",
+    "faithfulness": 0.7,
+    "answer_relevancy": 0.6789245845003337,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-008",
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.7532852036139899,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-009",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.7408062735940532,
+    "recall_artigos": 0.5,
+    "citacao_artigos": 0.5,
+    "erros": {}
+  },
+  {
+    "id": "gt-010",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.7836414333579526,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-011",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.7876358809863127,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-012",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.6720501276864046,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-013",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8710434082133698,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-014",
+    "faithfulness": 0.7777777777777778,
+    "answer_relevancy": 0.7218014779301631,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-015",
+    "faithfulness": 0.8,
+    "answer_relevancy": 0.854887188443437,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-016",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9000054734149746,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-017",
+    "faithfulness": 0.875,
+    "answer_relevancy": 0.8747143268310087,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-018",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8100736396660642,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-019",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8824958935585692,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-020",
+    "faithfulness": 0.7692307692307693,
+    "answer_relevancy": 0.8561308091879157,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-021",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.7288491654583933,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-022",
+    "faithfulness": 0.9,
+    "answer_relevancy": 0.6573944456603322,
+    "recall_artigos": 0.5,
+    "citacao_artigos": 0.5,
+    "erros": {}
+  },
+  {
+    "id": "gt-023",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.6487971265855139,
+    "recall_artigos": 0.0,
+    "citacao_artigos": 0.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-024",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.76487967318412,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-025",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.7622721403871867,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-026",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.7362506331386157,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-027",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.7103487045357251,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-028",
+    "faithfulness": 0.8,
+    "answer_relevancy": 0.4694885952792924,
+    "recall_artigos": 0.5,
+    "citacao_artigos": 0.5,
+    "erros": {}
+  },
+  {
+    "id": "gt-029",
+    "faithfulness": 0.6666666666666666,
+    "answer_relevancy": 0.8756800478942195,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-030",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9844599041584,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-031",
+    "faithfulness": 0.875,
+    "answer_relevancy": 0.7274633630268516,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  },
+  {
+    "id": "gt-032",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.7067231567660222,
+    "recall_artigos": 1.0,
+    "citacao_artigos": 1.0,
+    "erros": {}
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "rotulo": "pos-ajuste",
+  "criada_em": "2026-11-15T19:52:28.792133Z",
+  "versao_ground_truth": "1.0.0",
+  "total_casos": 32,
+  "configuracao": {
+    "modelo_geracao": "openai/gpt-oss-120b",
+    "modelo_juiz": "openai/gpt-oss-20b",
+    "modelo_embedding": "BAAI/bge-m3",
+    "colecao_qdrant": "cdc_vetores",
+    "documentos_recuperados_k": 4,
+    "temperatura_geracao": 0.0,
+    "prompt_sha256": "53f23fcf73f7",
+    "ragas": "0.4.4",
+    "langchain_core": "1.8.1",
+    "python": "3.14.0"
+  }
+}
