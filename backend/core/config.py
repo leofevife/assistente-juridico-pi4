@@ -3,7 +3,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Annotated
 
-from pydantic import Field, SecretStr, field_validator
+from pydantic import AliasChoices, Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 CAMINHO_ENV = Path(__file__).resolve().parent.parent / ".env"
@@ -31,6 +31,11 @@ class Settings(BaseSettings):
     llm_max_tentativas: int = Field(default=2, ge=0, alias="LLM_MAX_TENTATIVAS")
 
     modelo_embedding: str = Field(default="BAAI/bge-m3", alias="MODELO_EMBEDDING")
+    hf_api_token: SecretStr | None = Field(
+        default=None,
+        validation_alias=AliasChoices("HF_API_TOKEN", "HUGGINGFACEHUB_API_TOKEN", "HF_TOKEN"),
+    )
+    embedding_provedor: str = Field(default="auto", alias="EMBEDDING_PROVEDOR")
     retriever_k: int = Field(default=4, ge=1, le=20, alias="RETRIEVER_K")
 
     pergunta_tamanho_maximo: int = Field(default=1000, ge=10, alias="PERGUNTA_TAMANHO_MAXIMO")
@@ -51,6 +56,26 @@ class Settings(BaseSettings):
                 return json.loads(valor)
             return [origem.strip() for origem in valor.split(",") if origem.strip()]
         return valor
+
+    @field_validator("embedding_provedor", mode="before")
+    @classmethod
+    def _normalizar_embedding_provedor(cls, valor):
+        if isinstance(valor, str):
+            normalizado = valor.strip().lower()
+            if normalizado == "huggingface_api":
+                normalizado = "api"
+            if normalizado not in {"auto", "api", "local"}:
+                raise ValueError("EMBEDDING_PROVEDOR deve ser 'auto', 'api' ou 'local'.")
+            return normalizado
+        return valor
+
+    @property
+    def usar_embedding_remoto(self) -> bool:
+        if self.embedding_provedor == "api":
+            return True
+        if self.embedding_provedor == "local":
+            return False
+        return bool(self.hf_api_token and self.hf_api_token.get_secret_value().strip())
 
     @property
     def em_producao(self) -> bool:

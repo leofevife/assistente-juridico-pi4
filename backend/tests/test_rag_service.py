@@ -1,5 +1,6 @@
 import asyncio
 
+import pytest
 from langchain_core.documents import Document
 from langchain_core.language_models.fake_chat_models import FakeListChatModel
 from langchain_core.messages import AIMessage
@@ -178,4 +179,66 @@ def test_retriever_cdc_pondera_termos_raros_por_idf():
 
     ids = [d.metadata["artigo"] for d in resultado]
     assert "6" in ids
+
+
+def test_repositorio_cria_embeddings_via_endpoint_hf(monkeypatch):
+    from langchain_huggingface import HuggingFaceEndpointEmbeddings
+    from backend.data import repositorio_vetorial
+    from backend.tests.fakes import criar_settings
+
+    capturado: dict[str, object] = {}
+
+    def falso_from_existing(**kwargs):
+        capturado.update(kwargs)
+        return "vector-store-falso"
+
+    monkeypatch.setattr(repositorio_vetorial.QdrantVectorStore, "from_existing_collection", falso_from_existing)
+
+    settings = criar_settings(EMBEDDING_PROVEDOR="api", HF_API_TOKEN="hf-token-teste")
+    repo = repositorio_vetorial.CDCVectorRepository(settings=settings)
+
+    assert isinstance(repo.embeddings, HuggingFaceEndpointEmbeddings)
+    assert repo.embeddings.model == "BAAI/bge-m3"
+    assert repo.embeddings.provider == "hf-inference"
+    assert repo.embeddings.huggingfacehub_api_token == "hf-token-teste"
+    assert capturado["validate_collection_config"] is False
+
+
+def test_repositorio_exige_hf_token_no_modo_api(monkeypatch):
+    from backend.data.repositorio_vetorial import CDCVectorRepository
+    from backend.tests.fakes import criar_settings
+
+    for var in ("HF_API_TOKEN", "HUGGINGFACEHUB_API_TOKEN", "HF_TOKEN"):
+        monkeypatch.delenv(var, raising=False)
+
+    repo = object.__new__(CDCVectorRepository)
+    repo.settings = criar_settings(EMBEDDING_PROVEDOR="api")
+
+    with pytest.raises(ValueError, match="HF_API_TOKEN"):
+        repo._criar_embeddings()
+
+
+def test_repositorio_usa_embeddings_locais_quando_configurado(monkeypatch):
+    from backend.data import repositorio_vetorial
+    from backend.tests.fakes import criar_settings
+
+    chamadas: dict[str, object] = {}
+
+    def falso_hf_local(**kwargs):
+        chamadas["local"] = kwargs
+        return "embeddings-locais"
+
+    def falso_from_existing(**kwargs):
+        chamadas["qdrant"] = kwargs
+        return "vector-store-local"
+
+    monkeypatch.setattr(repositorio_vetorial, "HuggingFaceEmbeddings", falso_hf_local)
+    monkeypatch.setattr(repositorio_vetorial.QdrantVectorStore, "from_existing_collection", falso_from_existing)
+
+    settings = criar_settings(EMBEDDING_PROVEDOR="local", HF_API_TOKEN="hf-token-teste")
+    repo = repositorio_vetorial.CDCVectorRepository(settings=settings)
+
+    assert repo.embeddings == "embeddings-locais"
+    assert chamadas["local"]["model_name"] == "BAAI/bge-m3"
+    assert chamadas["qdrant"]["validate_collection_config"] is True
 

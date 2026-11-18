@@ -4,8 +4,9 @@ import unicodedata
 
 from langchain_core.callbacks import AsyncCallbackManagerForRetrieverRun, CallbackManagerForRetrieverRun
 from langchain_core.documents import Document
+from langchain_core.embeddings import Embeddings
 from langchain_core.retrievers import BaseRetriever
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpointEmbeddings
 from langchain_qdrant import QdrantVectorStore
 
 from backend.core.config import Settings, obter_settings
@@ -127,17 +128,31 @@ class CDCVectorRepository:
         if not self.qdrant_url or not self.qdrant_api_key:
             raise ValueError("Credenciais do Qdrant ausentes no arquivo .env")
 
-        self.embeddings = HuggingFaceEmbeddings(
-            model_name=self.settings.modelo_embedding,
-            model_kwargs={"device": "cpu"},
-            encode_kwargs={"normalize_embeddings": True},
-        )
+        self.embeddings = self._criar_embeddings()
 
         self.vector_store = QdrantVectorStore.from_existing_collection(
             embedding=self.embeddings,
             url=self.qdrant_url,
             api_key=self.qdrant_api_key,
             collection_name=self.collection_name,
+            validate_collection_config=not self.settings.usar_embedding_remoto,
+        )
+
+    def _criar_embeddings(self) -> Embeddings:
+        if self.settings.usar_embedding_remoto:
+            token = self.settings.hf_api_token.get_secret_value().strip() if self.settings.hf_api_token else ""
+            if not token:
+                raise ValueError("HF_API_TOKEN ausente no arquivo .env para uso do endpoint de embeddings da Hugging Face")
+            return HuggingFaceEndpointEmbeddings(
+                model=self.settings.modelo_embedding,
+                provider="hf-inference",
+                huggingfacehub_api_token=token,
+            )
+
+        return HuggingFaceEmbeddings(
+            model_name=self.settings.modelo_embedding,
+            model_kwargs={"device": "cpu"},
+            encode_kwargs={"normalize_embeddings": True},
         )
 
     def obter_retriever(self, k: int = 4) -> BaseRetriever:
