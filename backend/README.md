@@ -27,9 +27,20 @@ backend/
 ## Configuração
 
 ```powershell
+# Ambiente completo (desenvolvimento, embeddings locais, ingestão, testes e RAGAS)
 pip install -r requirements-dev.txt
+
+# Ou apenas dependências enxutas de produção da API (requer EMBEDDING_PROVEDOR=api e HF_API_TOKEN)
+pip install -r requirements.txt
+
 Copy-Item backend/.env.example backend/.env   # preencha as chaves
 ```
+
+### Modo de Embedding (`EMBEDDING_PROVEDOR`)
+
+- `auto` *(padrão)*: utiliza `HuggingFaceEndpointEmbeddings` (provedor `hf-inference` via HTTP) se `HF_API_TOKEN` (ou `HUGGINGFACEHUB_API_TOKEN` / `HF_TOKEN`) estiver preenchido; caso contrário, carrega o `BAAI/bge-m3` localmente via `sentence-transformers`.
+- `api`: força o uso do endpoint HTTP da Hugging Face (exige `HF_API_TOKEN`), eliminando a necessidade de instalar `sentence-transformers`/`torch` ou carregar o modelo na memória RAM em produção.
+- `local`: força o carregamento local via `HuggingFaceEmbeddings` em CPU.
 
 ## Execução (a partir da raiz do projeto)
 
@@ -104,6 +115,6 @@ O detalhamento por caso e os relatórios completos estão em [avaliacao/README.m
 - Erros internos são registrados em log e o cliente recebe apenas mensagens genéricas.
 - Cabeçalhos de segurança (`nosniff`, `X-Frame-Options`, `no-store`).
 - Prompt instrui o LLM a ignorar tentativas de alterar suas regras (mitigação de prompt injection).
-- Modelo de embedding e conexões são carregados uma única vez no startup (lifespan).
+- Cliente de embedding e conexões são inicializados uma única vez no startup (lifespan); em modo remoto (`EMBEDDING_PROVEDOR=api` ou `auto` com `HF_API_TOKEN`), o servidor não carrega `BAAI/bge-m3` na memória RAM local.
 - O rate limit é em memória (por instância). Para múltiplas réplicas, substituir por armazenamento compartilhado (ex: Redis).
 

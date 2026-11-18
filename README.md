@@ -52,9 +52,9 @@ flowchart LR
 | **Frontend** | Vue 3 (`<script setup lang="ts">`), TypeScript 5.8, Vite 7, `marked`, `DOMPurify`, `@fontsource` (Newsreader, Instrument Sans, IBM Plex Mono) |
 | **Backend / API** | Python, FastAPI, Uvicorn, Pydantic v2 (`pydantic-settings`), Rate Limiting por IP |
 | **Orquestração RAG & LLM** | LangChain (`langchain-core`, `langchain-groq`), `ChatGroq` (`openai/gpt-oss-120b` com fallbacks para `openai/gpt-oss-20b` e `qwen/qwen3.8-27b`) |
-| **Embeddings & Banco Vetorial** | `BAAI/bge-m3` via `HuggingFaceEmbeddings` (`sentence-transformers`, 1024 dimensões, distância cosseno), Qdrant Cloud (`langchain-qdrant`, `qdrant-client`) |
+| **Embeddings & Banco Vetorial** | `BAAI/bge-m3` (1024 dimensões) via `HuggingFaceEndpointEmbeddings` (`hf-inference` HTTP em produção) ou `HuggingFaceEmbeddings` local (`sentence-transformers`), Qdrant Cloud (`langchain-qdrant`, `qdrant-client`) |
 | **Ingestão de Dados** | `pdfplumber` e expressões regulares em Python com preservação de `Título`, `Capítulo`, `Seção` e `Artigo` |
-| **Testes & Avaliação** | `pytest` + `httpx` (64 testes Python), Vitest + `@vue/test-utils` + `jsdom` (32 testes frontend), `ragas==0.4.4` |
+| **Testes & Avaliação** | `pytest` + `httpx` (70 testes Python), Vitest + `@vue/test-utils` + `jsdom` (32 testes frontend), `ragas==0.4.4` |
 
 ---
 
@@ -86,8 +86,8 @@ assistente-juridico/
 │   └── ingestao.py              # Parser estruturado por artigo, embedding e carga no Qdrant
 ├── docs/                        # Documentação técnica versionada
 ├── pytest.ini                   # Configuração do pytest (backend/tests e avaliacao/tests)
-├── requirements.txt             # Dependências de produção (backend + ingestão)
-├── requirements-dev.txt         # Dependências completas (desenvolvimento, testes e RAGAS)
+├── requirements.txt             # Dependências enxutas de produção da API (embeddings via endpoint HTTP)
+├── requirements-dev.txt         # Dependências completas (ingestão, embeddings locais, testes e RAGAS)
 └── README.md                    # Visão geral do repositório
 ```
 
@@ -107,12 +107,12 @@ assistente-juridico/
 Na raiz do repositório (`assistente-juridico/`):
 
 ```bash
-# Ambiente completo (backend, testes e avaliação RAGAS)
+# Ambiente completo (backend, embeddings locais, ingestão, testes e avaliação RAGAS)
 pip install -r requirements-dev.txt
 ```
 
 > [!TIP]
-> Para instalar apenas as dependências de execução da API e ingestão, utilize `pip install -r requirements.txt`. No Windows com Python 3.14, caso alguma subdependência de `ragas==0.4.4` apresente incompatibilidade de instalação, consulte a instrução específica em [avaliacao/README.md](avaliacao/README.md).
+> Para instalar apenas as dependências **enxutas de execução da API em produção** (sem `sentence-transformers`/`torch` nem `pdfplumber`, usando o endpoint HTTP da Hugging Face com `HF_API_TOKEN`), utilize `pip install -r requirements.txt`. No Windows com Python 3.14, caso alguma subdependência de `ragas==0.4.4` apresente incompatibilidade de instalação, consulte a instrução específica em [avaliacao/README.md](avaliacao/README.md).
 
 ### 2. Configurar variáveis de ambiente
 
@@ -132,6 +132,8 @@ Principais variáveis disponíveis em `backend/.env`:
 | `GROQ_API_KEY` | Chave da API Groq | *(obrigatório)* |
 | `GROQ_MODELO` | Modelo principal de geração | `openai/gpt-oss-120b` |
 | `MODELO_EMBEDDING` | Modelo de embedding (HuggingFace) | `BAAI/bge-m3` |
+| `EMBEDDING_PROVEDOR` | Modo do embedding: `auto`, `api` (`hf-inference`) ou `local` | `auto` |
+| `HF_API_TOKEN` | Token da Hugging Face (opcional; ativa endpoint HTTP no modo `auto` e obrigatório em `api`) | *(vazio)* |
 | `RETRIEVER_K` | Quantidade de trechos no contexto final | `4` |
 | `CORS_ORIGENS` | Origens permitidas no CORS | `http://localhost:5173,http://localhost:3000` |
 | `RATE_LIMIT_REQUISICOES` | Máximo de requisições por janela/IP | `20` |
@@ -188,7 +190,7 @@ Na raiz do repositório:
 python -m pytest
 ```
 
-Cobre **64 testes** distribuídos entre `backend/tests` (API, validações Pydantic, configuração, rate limit e serviço RAG com doubles de teste) e `avaliacao/tests` (validação do Ground Truth, métricas e relatórios).
+Cobre **70 testes** distribuídos entre `backend/tests` (API, validações Pydantic, seleção de provedor de embedding, rate limit e serviço RAG com doubles de teste) e `avaliacao/tests` (validação do Ground Truth, métricas e relatórios).
 
 ### Frontend (`Vitest`)
 
